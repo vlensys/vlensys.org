@@ -4,27 +4,53 @@ document.addEventListener("DOMContentLoaded", () => {
   let input = "";
 // hhhhhhh
  const allCommands = {
-  help: {
-    locked: false,
-    description: "Usage: help (command)",
-    action: (args) => {
-      if (args.length === 0) {
-        const available = Object.entries(allCommands)
-          .filter(([name, cmd]) => !cmd.locked)
-          .map(([name]) => name)
-          .join(", ");
-        return `Available commands: ${available}`;
+help: {
+  locked: false,
+  description: "Usage: help (command)",
+  action: (args) => {
+    if (args.length === 0) {
+      const available = Object.entries(allCommands)
+        .filter(([name, cmd]) => {
+          // include only unlocked commands
+          // hide "?" commands if they are unlocked
+          if (name.includes("?") && !cmd.locked) return false;
+          return !cmd.locked;
+        })
+        .map(([name]) => name)
+        .join(", ");
+      return `Available commands: ${available}`;
+    } else {
+      const cmdName = args[0];
+      if (allCommands[cmdName] && !allCommands[cmdName].locked) {
+        return `${cmdName}: ${allCommands[cmdName].description}`;
       } else {
-        const cmdName = args[0];
-        if (allCommands[cmdName] && !allCommands[cmdName].locked) {
-          return `${cmdName}: ${allCommands[cmdName].description}`;
-        } else {
-          return `No such command: ${cmdName}`;
-        }
+        return `No such command: ${cmdName}`;
       }
     }
-  },
+  }
+},
 
+   test: {
+    locked: false,
+     description: "test commands?? why???",
+
+   },
+         "is?r???": {
+    locked: false,
+     description: "what could this possibly mean?",
+   },
+     "ne?t?n?a??": {
+    locked: false,
+     description: "what could this possibly mean?",
+   },
+      "ki?r?": {
+    locked: false,
+     description: "what could this possibly mean?",
+   },
+   "s?t": {
+    locked: false,
+     description: "what could this possibly mean?",
+   },
    kirk: {
     locked: true,
      description: "the neck/",
