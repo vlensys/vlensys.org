@@ -3,71 +3,43 @@ document.addEventListener("DOMContentLoaded", () => {
   let inputEl = document.querySelector(".input");
   let input = "";
 // hhhhhhh
- const allCommands = {
-help: {
-  locked: false,
-  description: "Usage: help (command)",
-  action: (args) => {
-    if (args.length === 0) {
-      const available = Object.entries(allCommands)
-        .filter(([name, cmd]) => {
-          // show all normal unlocked commands
-          if (!cmd.locked && !name.includes("?")) return true;
-          // show "?" commands only if they are still locked
-          if (name.includes("?") && cmd.locked) return true;
-          return false;
-        })
-        .map(([name]) => name)
-        .join(", ");
-      return `Available commands: ${available}`;
-    } else {
-      const cmdName = args[0];
-      if (allCommands[cmdName] && !allCommands[cmdName].locked) {
-        return `${cmdName}: ${allCommands[cmdName].description}`;
+const allCommands = {
+  help: {
+    locked: false,
+    description: "Usage: help (command)",
+    action: (args) => {
+      if (args.length === 0) {
+        const available = Object.entries(allCommands)
+          .filter(([name, cmd]) => {
+            // Show all normal unlocked commands
+            if (!cmd.locked && !name.includes("?")) return true;
+            // Show "?" commands only while locked
+            if (name.includes("?") && cmd.locked) return true;
+            return false;
+          })
+          .map(([name]) => name)
+          .join(", ");
+        return `Available commands: ${available}`;
       } else {
-        return `No such command: ${cmdName}`;
+        const cmdName = args[0];
+        if (allCommands[cmdName] && !allCommands[cmdName].locked) {
+          return `${cmdName}: ${allCommands[cmdName].description}`;
+        } else {
+          return `No such command: ${cmdName}`;
+        }
       }
     }
-  }
-},
+  },
 
-
-   test: {
+  // Normal commands
+  test: {
     locked: false,
-     description: "test commands?? why???",
-
-   },
-         "is?r???": {
-    locked: false,
-     description: "what could this possibly mean?",
-   },
-     "ne?t?n?a??": {
-    locked: false,
-     description: "what could this possibly mean?",
-   },
-      "ki?r?": {
-    locked: false,
-     description: "what could this possibly mean?",
-   },
-   "s?t": {
-    locked: false,
-     description: "what could this possibly mean?",
-   },
-   kirk: {
-    locked: true,
-     description: "the neck/",
-     // reminder to myself to add kirk music
-   },
-      netanyahu: {
-    locked: true,
-     description: "the neck/",
-     // reminder to myself to add recent netanyahu tweets
-   },   israel: {
-    locked: true,
-     description: "the neck/",
-     // reminder to myself to add map of israel
-   },
-
+    description: "test commands?? why???",
+    action: (args) => {
+      if (args[0]) unlockCommand(args[0]);
+      return args[0] ? `${args[0]} works...` : "Usage: test (your guess of a command)";
+    }
+  },
 
   whoami: {
     locked: true,
@@ -85,9 +57,19 @@ help: {
       }
       return "Usage: set <key> <value>";
     }
-  }
-};
+  },
 
+
+  "is?r??": { locked: false, description: "what could this possibly mean?" },
+  "ne?t?n?a??": { locked: false, description: "what could this possibly mean?" },
+  "ki?r?": { locked: false, description: "what could this possibly mean?" },
+  "s?t": { locked: false, description: "what could this possibly mean?" },
+
+
+  kirk: { locked: true, description: "the neck/" },
+  netanyahu: { locked: true, description: "the neck/" },
+  israel: { locked: true, description: "the neck/" }
+};
 
   // unlock commands
   const unlocked = JSON.parse(localStorage.getItem("unlocked")) || [];
