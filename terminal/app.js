@@ -11,10 +11,11 @@ help: {
     if (args.length === 0) {
       const available = Object.entries(allCommands)
         .filter(([name, cmd]) => {
-          // include only unlocked commands
-          // hide "?" commands if they are unlocked
-          if (name.includes("?") && !cmd.locked) return false;
-          return !cmd.locked;
+          // show all normal unlocked commands
+          if (!cmd.locked && !name.includes("?")) return true;
+          // show "?" commands only if they are still locked
+          if (name.includes("?") && cmd.locked) return true;
+          return false;
         })
         .map(([name]) => name)
         .join(", ");
@@ -29,6 +30,7 @@ help: {
     }
   }
 },
+
 
    test: {
     locked: false,
