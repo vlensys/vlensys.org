@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Mouse Look Effect</title>
+
+<style>
+html, body {
+  margin: 0;
+  height: 100%;
+  overflow: hidden;
+}
+
+.scene {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 110%;
+  height: auto;
+  transform: translate(-50%, -50%) scale(1.1);
+}
+
+.scene img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+
+.icon {
+  position: absolute;
+
+  cursor: pointer;
+}
+
+/* terminal */
+.icon-terminal {
+  left: 26.82%;
+  top: 29.28%;
+  width: 13.17%;
+  height: 23.07%;
+}
+
+/* note */
+.icon-notes {
+  left: 43.10%;
+  top: 30.77%;
+  width: 13.42%;
+  height: 25.95%;
+}
+
+/* netanyahu */
+.icon-israel {
+  left: 59.33%;
+  top: 33.18%;
+  width: 11.93%;
+  height: 26.60%;
+}
+</style>
+</head>
+<body>
+
+<div class="scene" id="scene">
+  <img src="idk.jpg" alt="Background">
+
+<a href="/terminal" class="icon icon-terminal"></a>
+<a href="/notes" class="icon icon-notes"></a>
+<a href="/israel" class="icon icon-israel"></a>
+
+</div>
+
+<script>
+const scene = document.getElementById('scene');
+
+document.addEventListener('mousemove', (e) => {
+  const x = (e.clientX / window.innerWidth - 0.5) * 30;
+  const y = (e.clientY / window.innerHeight - 0.5) * 30;
+
+  scene.style.transform =
+    `translate(calc(-50% - ${x}px), calc(-50% - ${y}px)) scale(1.1)`;
+});
+</script>
+
+</body>
+</html>
