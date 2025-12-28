@@ -60,10 +60,10 @@ const allCommands = {
   },
 
 
-  "is?r??": { locked: false, description: "what could this possibly mean?" },
-  "ne?t?n?a??": { locked: false, description: "what could this possibly mean?" },
-  "ki?r?": { locked: false, description: "what could this possibly mean?" },
-  "s?t": { locked: false, description: "what could this possibly mean?" },
+  is$r$$l: { locked: false, description: "what could this possibly mean?" },
+  ne$t$n$a$$: { locked: false, description: "what could this possibly mean?" },
+  ki$r$: { locked: false, description: "what could this possibly mean?" },
+  s$t: { locked: false, description: "what could this possibly mean?" },
 
 
   kirk: { locked: true, description: "the neck/" },
@@ -77,7 +77,7 @@ const allCommands = {
     if (allCommands[cmd]) allCommands[cmd].locked = false;
   });
 
-  // key input (fml)
+  // I HATE JS FML AHGGAGAGGAGAGGAGAGAGGAGAG
   document.addEventListener("keydown", (e) => {
     if (e.key === " ") e.preventDefault();
 
@@ -123,7 +123,7 @@ const allCommands = {
     if (base === "test" && args[0]) {
       const toUnlock = args[0];
       unlockCommand(toUnlock);
-      output.textContent = `Tested and unlocked: ${toUnlock}`;
+      output.textContent = `...`;
     }
     else if (allCommands[base]) {
       if (allCommands[base].locked) {
